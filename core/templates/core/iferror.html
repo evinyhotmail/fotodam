@@ -1,0 +1,12 @@
+{% if form.errors  %}
+<div class="p-2 mb-0 mt-0 bg-gradient-danger text-white">
+    {% for field in form %}
+    {% for error in field.errors %}
+    {{ error|escape }}
+    {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+    {{ error|escape }}
+    {% endfor %}
+</div>
+{% endif %}

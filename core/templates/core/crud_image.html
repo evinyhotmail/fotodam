@@ -1,0 +1,173 @@
+{% extends "core/layout.html" %}
+{% load static %}
+{% block title %} {% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'lib/adminlte-3.2.0/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}" />
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="{% static 'lib/adminlte-3.2.0/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css' %}">
+<!-- Toastr -->
+<link rel="stylesheet" href="{% static 'lib/adminlte-3.2.0/plugins/toastr/toastr.min.css' %}">
+{% endblock styles %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h4 class="card-title">Gestión de Imágen...!</h4>
+            </div>
+            {% include 'core/iferror.html' %}
+            <form id="myCrudForm" action="" method="POST" enctype='multipart/form-data'>
+
+
+                {% csrf_token %}
+                <div class="card-body">
+
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-group">
+                                <span class="text-warning">
+                                    {{form.title.label}}
+                                </span>
+                                {% if not delete %}
+                                {{form.title}}
+                                {% else %}
+                                <div class="bg-gray disable color-palette border p-3 rounded">
+                                    {{image.title}}
+                                </div>
+                                {% endif %}
+
+
+                                <br>
+                                <span class="text-warning">
+                                    {{form.description.label}}
+                                </span>
+                                {% if not delete %}
+                                {{form.description}}
+                                {% else %}
+                                <div class="bg-gray disable color-palette border p-3 rounded">
+                                    {{image.description|linebreaks}}
+                                </div>
+
+
+                                {% endif %}
+                                <small class="form-text text-muted">
+                                    <span class="badge badge-warning"> Info: </span>
+                                    Describa brevemente el propósito de la imagen.
+                                </small>
+                            </div>
+                        </div><!-- ./col Left-->
+
+                        <div class="col">
+                            {% if edit or delete %}
+                            {% include 'core/selectbuild.html' %}
+                            {% else %}
+                            <div class="form-group">
+                                <span class="text-warning">
+                                    {{form.categories.label}}
+                                </span>
+                                {{form.categories}}
+                            </div>
+                            {% endif %}
+
+                            <small class="form-text text-muted">
+                                <span class="badge badge-warning"> Info: </span>
+                                Selecciona un tipo de categoria.
+                            </small>
+                            <small class="form-text text-muted">
+                                <span class="badge badge-danger"> Info: </span>
+                                Como mínimo un tipo de categoría debe estar seleccionado.
+                            </small>
+                        </div><!-- ./col center-->
+
+                        <div class="col">
+                            <div class="form-group">
+
+                                {% if edit or delete %}
+
+                                <h5 class="text-warning">Imagen actual</h5>
+                                <img class="" src="{{image.image.url}}" alt="{{image.image}}" width="200" height="200">
+                                <br>
+                                <small class="form-text text-muted">
+                                    <span class="badge badge-primary">&nbsp; url:&nbsp; </span>
+                                    {{image.image}}.
+                                </small>
+                                {% comment %} due to I am adding a image {% endcomment %}
+                                {% else %}
+                                <img src="{% static 'core/custom/img/upload-img.png' %}" alt="Upload Image" width="200" height="200">
+                                {% endif %}
+
+
+                                {% if edit or add %}
+                                <br><br>
+                                <div class="custom-file">
+                                    {{form.image}}
+                                    {% comment %} form.image return the id="id_image" {% endcomment %}
+                                    <label class="custom-file-label" for="id_image">Selecciona un fichero</label>
+                                </div>
+
+                                <small class="form-text text-muted">
+                                    <span class="badge badge-warning"> Info: </span>
+                                    {{form.image.help_text}}.
+                                </small>
+                                {% endif %}
+
+                            </div>
+                        </div><!-- ./col right-->
+                    </div>
+                </div><!-- /.card-body -->
+                {% comment %} Area of foother {% endcomment %}
+                <div class="card-footer">
+                    <a href="{% url 'core:dashboard' %}" type="button" class="btn btn-secondary  btn-sm">Cancelar</a>
+                    {% if not delete %}
+                    <button type="submit" id="submit_save" class="btn btn-primary btn-sm" disabled>
+                        <i class="fas fa-plus-circle"></i> &nbsp; Guardar
+                    </button>
+                    {% else %}
+
+
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger">
+                        <i class="fas fa-trash-alt"></i> &nbsp; Eliminar
+                    </button>
+                    {% comment %} <button type="submit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger">
+                        <i class="fas fa-plus-circle"></i> &nbsp; Eliminar
+                    </button> {% endcomment %}
+                    {% endif %}
+
+                </div><!-- /.card-footer -->
+            </form>
+        </div><!-- /.card -->
+
+
+    </div>
+</div>
+
+{% include 'core/modaldanger.html' %}
+
+{% endblock content %}
+
+
+{% block script %}
+
+{% comment %} Used to disable or enable the summit botton if a least one of category has been select {% endcomment %}
+{% if not delete %}
+<script src=" {% static '/core/custom/js/checkcategorieselected.js' %} "></script>
+{% endif %}
+
+
+<!-- SweetAlert2 -->
+<script src="{% static 'lib/adminlte-3.2.0/plugins/sweetalert2/sweetalert2.min.js' %}"></script>
+<!-- Toastr -->
+<script src="{% static 'lib/adminlte-3.2.0/plugins/toastr/toastr.min.js' %}"></script>
+
+{% comment %} show the name of the image appear on select {% endcomment %}
+<script src=" {% static '/core/custom/js/shownamefile.js' %} "></script>
+
+
+{% if delete %}
+<script src=" {% static '/core/custom/js/checkdeleteconfirm.js' %} "></script>
+{% endif %}
+
+
+{% endblock script %}

@@ -1,0 +1,41 @@
+<div class="form-group">
+    <span class="text-warning">
+        *Categorías actuales.
+    </span>
+
+    <div id="id_categories" class="category-check">
+        {% if edit %}
+        {% for selected in img_selected  %}
+        <label for="id_categories_{{selected.pk}}">
+            <input type="checkbox" name="categories" value="{{selected.pk}}" class="category-check" id="id_categories_{{selected.pk}}" checked>
+            {{selected.description}}
+        </label>
+        <br>
+        {% endfor %}
+        <hr>
+
+
+        <h5 class="text-primary">Categorías disponibles.</h5>
+        {% for to_select in img_to_select  %}
+        <label for="id_categories_{{to_select.pk}}">
+            <input type="checkbox" name="categories" value="{{to_select.pk}}" class="category-check" id="id_categories_{{to_select.pk}}">
+            {{to_select.description}}
+        </label>
+        <br>
+        {% endfor %}
+
+        {% elif delete %}
+        {% for selected in img_selected  %}
+        <label for="id_categories_{{selected.pk}}">
+            <input type="checkbox" name="categories" value="{{selected.pk}}" class="category-check" id="id_categories_{{selected.pk}}" checked disabled>
+            {{selected.description}}
+        </label>
+        <br>
+        {% endfor %}
+        {% endif %}
+
+
+
+    </div>
+
+</div>

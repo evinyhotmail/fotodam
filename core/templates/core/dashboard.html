@@ -1,0 +1,116 @@
+{% extends "core/layout.html" %}
+{% load static %}
+{% block title %} {% endblock %}
+
+{% block styles %}
+<!-- Ekko Lightbox -->
+<link rel="stylesheet" href="{% static 'lib/adminlte-3.2.0/plugins/ekko-lightbox/ekko-lightbox.css' %}">
+
+{% endblock styles %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-12">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h4 class="card-title">Mis imágenes favoritas...!</h4>
+      </div>
+      <div class="card-body">
+        <div class="input-group input-group-sm">
+          <input class="form-control " type="text" placeholder="Buscar..." aria-label="Search" data-search>
+          <div class="input-group-append">
+            <button class="btn btn-navbar" type="text">
+              <i class="fas fa-search text-warning"></i>
+            </button>
+          </div>
+        </div>
+        <hr>
+        <div>
+
+
+          <strong>Categorías diponibles:</strong>
+
+          {% comment %} here I create the top of categories {% endcomment %}
+          <div class="btn-group w-100 mb-2">
+            <a class="btn btn-info active" data-filter="all"> Todas las imágenes </a>
+            {% for category in categories %}
+            <a class="btn btn-info" data-filter="{{category.pk}}"> {{category.description}} </a>
+            {% endfor %}
+          </div>
+
+
+          <div class="mb-2">
+            <a href=" {% url 'core:addimage'%}" class="open-modal-pet btn btn-secondary"><i class="fas fa-plus-circle"></i> &nbsp;Agregar una Imagen</a>
+
+            <a class="btn btn-secondary" data-shuffle><i class="fas fa-random"></i>&nbsp;Barajar imagenes </a>
+
+
+            <div class="float-right">
+              <select class="custom-select" style="width: auto;" data-sortOrder>
+                <option value="index"> Ordenar Posición </option>
+                <option value="sortData"> Order por datos personalizados </option>
+              </select>
+              <div class="btn-group">
+                <a class="btn btn-default" data-sortAsc> Ascendente </a>
+                <a class="btn btn-default" data-sortDesc> Decendente </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="filter-container p-0 row">
+            {% for image in images %}
+            {% comment %} Create each element into the filtr-item {% endcomment %}
+            <div class="filtr-item col-sm-2 p-2 border border-dark" data-category="{{image.data_category}}" data-sort="{{image.title}}">
+              {% comment %} Box to show images {% endcomment %}
+              <a href="{{image.image.url}}?text={{image.title}}" data-toggle="lightbox" data-title="{{image.title}}">
+                <img src="{{image.image.url}}" class="img-fluid mb-2" alt="{{img.title}}" />
+
+                {% comment %} Area to show the Description {% endcomment %}
+                <small class="form-text text-white">
+                  <span class="badge badge-info"> Descripción: </span>
+                  {{image.description}}
+                </small>
+
+                <hr style="height:1px;border-width:0;color:white;background-color:Teal">
+                {% comment %} Buttom to delete and modify {% endcomment %}
+                <div class="float-right">
+                  <a href=" {% url 'core:editimage'   image.pk %}" class="open-modal-pet btn btn-warning btn-sm"><i class="fas fa-pen"></i></a>
+                  <a href=" {% url 'core:deleteimage' image.pk %}" class="open-modal-pet btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                </div>
+              </a><!-- /.image -->
+            </div><!-- /.filtr-item -->
+
+            {% endfor %}
+
+          </div><!-- /.Filter-container -->
+        </div>
+
+      </div><!-- /.card-body -->
+      {% comment %} Area of foother {% endcomment %}
+      <div class="card-footer">
+        <a href=" {% url 'core:addimage'%}" class="open-modal-pet btn btn-secondary"><i class="fas fa-plus-circle"></i> &nbsp;Agregar una Imagen</a>
+        <div class="float-right">
+          <a class="open-modal-pet btn btn-secondary btn-xs"><i class="fas fa-plus-circle"></i></a> = Agregar |
+          <a class="open-modal-pet btn btn-warning btn-xs"><i class="fas fa-pen"></i></a> = Modificar |
+          <a class="open-modal-pet btn btn-danger btn-xs"><i class="fas fa-trash-alt"></i></a> = Eliminar
+        </div>
+      </div><!-- /.card-footer -->
+    </div><!-- /.card -->
+  </div><!-- /.col-12 -->
+</div><!-- /.row -->
+
+{% endblock content %}
+
+
+{% block script %}
+
+<!-- Page specific script -->
+<!-- Filterizr-->
+<script src="{% static 'lib/adminlte-3.2.0/plugins/filterizr/jquery.filterizr.min.js' %}"></script>
+
+<script src=" {% static '/core/custom/js/galerymanagment.js' %} "></script>
+
+
+{% endblock script %}

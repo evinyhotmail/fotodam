@@ -1,0 +1,8 @@
+.login-page {
+    /* background-color: #af6994; */
+    background-image: url("/static/core/custom/img/login_background1920x1280.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
