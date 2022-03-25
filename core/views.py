@@ -32,13 +32,10 @@ def LogoutPage(request):
     logout(request)
     return redirect('core:loginpage')
 
-@login_required()
+@login_required
 def DashBoard(request):
     images = request.user.imagebank_set.select_related('user')
     categories = ImageCategory.objects.all().order_by('description')
-
-    for x in  images:
-        print(x.image.url)
 
     if not images:
         msg='No tienes imágenes cargadas.'
@@ -55,13 +52,13 @@ def DashBoard(request):
 
     return render(request, 'core/dashboard.html', context)
 
-
+@login_required
 def AddImage(request):
     form = ImageForm()
     if request.method == "POST":
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
-            print(request.POST)
+           
             image = form.save(commit=False)
             image.user = request.user
             # I sav before in order to get the img.pk
@@ -84,6 +81,7 @@ def AddImage(request):
     
     return render(request, 'core/crud_image.html', context)
 
+@login_required
 def EditImage(request, pk):
     image = ImageBank.objects.get(pk=pk)
     img_selected = image.categories.all().order_by('description')
@@ -116,6 +114,7 @@ def EditImage(request, pk):
     }
     return render(request, 'core/crud_image.html', context)
 
+@login_required
 def DeleteImage(request, pk):
     image = ImageBank.objects.get(pk=pk)
     img_selected = image.categories.all().order_by('description')
