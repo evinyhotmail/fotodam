@@ -1,4 +1,4 @@
-from email.policy import default
+import os
 import re
 from django.contrib.auth.models import User
 from django.db import models
@@ -50,6 +50,12 @@ class ImageBank(models.Model):
         for x in qs:
             value += f'{x.pk},' 
         return value[:-1]
+    
+    @property
+    def file_ext(self):
+        # unpacking the tuple
+        f_name, f_ext = os.path.splitext(str(self.image))
+        return f_ext
 
     # Method used to delete the file into the disk
     def delete(self, *args, **kwargs):

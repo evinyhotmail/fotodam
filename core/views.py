@@ -75,7 +75,7 @@ def AddImage(request):
             messages.success(
                 request, ":) La imagen se ha guardado correctamente...!")
         else:
-            messages.error(request, ":( Algo salio mal, intenta de nuevo..!")
+            messages.error(request, ":( Algo salio mal, posiblemente estes itentando subir un tipo de fichero no valido,  intenta de nuevo..!")
         return redirect('core:dashboard')
     context = {
         'form': form,

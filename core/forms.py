@@ -1,5 +1,5 @@
-from csv import field_size_limit
 from django import forms
+from django.core.validators import FileExtensionValidator
 from django.forms import ModelForm
 from core.models import *
 
@@ -32,8 +32,18 @@ class ImageForm(ModelForm):
 
     image = forms.FileField (
     label='*Imagen.',
-    help_text="Formatos aceptados: .jpg, .png .pdf", 
+    help_text="Formatos aceptados:   .bmp,   .gif,   .jpeg   .jpg,   .png   .tiff,   .mpeg,   .pdf", 
     required=True,
+    validators=[FileExtensionValidator([
+        'bmp',
+        'gif',
+        'jpeg',
+        'jpg',
+        'png',
+        'tiff',
+        'mpeg',
+        'pdf'
+    ])],
     widget=forms.FileInput(
         {'class':'custom-file-input'}
         

@@ -19,8 +19,6 @@
             </div>
             {% include 'core/iferror.html' %}
             <form id="myCrudForm" action="" method="POST" enctype='multipart/form-data'>
-
-
                 {% csrf_token %}
                 <div class="card-body">
 
@@ -87,7 +85,15 @@
                                 {% if edit or delete %}
 
                                 <h5 class="text-warning">Imagen actual</h5>
+
+                                {% comment %} Validating if is different of a pdf ext then show
+                                the image else pdf
+                                {% endcomment %}
+                                {% if not image.file_ext == '.pdf' %}
                                 <img class="" src="{{image.image.url}}" alt="{{image.image}}" width="200" height="200">
+                                {% else %}
+                                <img src="{% static 'core/custom/img/logo_pdf.png' %}" class="img-fluid mb-2" alt="{{img.title}}" />
+                                {% endif %}
                                 <br>
                                 <small class="form-text text-muted">
                                     <span class="badge badge-primary">&nbsp; url:&nbsp; </span>
