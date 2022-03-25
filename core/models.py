@@ -28,8 +28,8 @@ class ImageCategory(models.Model):
 class ImageBank(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     categories = models.ManyToManyField(ImageCategory)
-    title = models.CharField(max_length=80, blank=False)
-    description = models.TextField(max_length=120,  blank=True, default="Coloque aqui una breve descripción de la imagen")
+    title = models.CharField(max_length=20, blank=False)
+    description = models.TextField(max_length=120,  blank=True, default="Coloque aquí una breve descripción de la imagen")
     image = models.ImageField(
          upload_to = user_directory_path, 
          blank=False,

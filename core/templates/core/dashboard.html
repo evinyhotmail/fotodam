@@ -15,7 +15,7 @@
   <div class="col-12">
     <div class="card card-primary">
       <div class="card-header">
-        <h4 class="card-title">Mis imágenes favoritas...!</h4>
+        <h4 class="card-title">Mis imágenes favoritas</h4>
 
       </div>
       <div class="card-body">
@@ -43,14 +43,14 @@
 
 
           <div class="mb-2">
-            <a href=" {% url 'core:addimage'%}" class="open-modal-pet btn btn-secondary"><i class="fas fa-plus-circle"></i> &nbsp;Agregar una Imagen</a>
+            <a href=" {% url 'core:addimage'%}" class="open-modal-pet btn btn-secondary"><i class="fas fa-plus-circle"></i> &nbsp;Agregar una imagen</a>
 
-            <a class="btn btn-secondary" data-shuffle><i class="fas fa-random"></i>&nbsp;Barajar imagenes </a>
+            <a class="btn btn-secondary" data-shuffle><i class="fas fa-random"></i>&nbsp;Barajar imágenes </a>
 
 
             <div class="float-right">
               <select class="custom-select" style="width: auto;" data-sortOrder>
-                <option value="index"> Ordenar Posición </option>
+                <option value="index"> Ordenar posición </option>
                 <option value="sortData"> Order por datos personalizados </option>
               </select>
               <div class="btn-group">
@@ -66,23 +66,26 @@
 
             {% comment %} Create each element into the filtr-item {% endcomment %}
             <div class="filtr-item col-sm-2 p-2 border border-dark" data-category="{{image.data_category}}" data-sort="{{image.title}}">
-              {% comment %} show the name of file {% endcomment %}
+
+              {% comment %} show the title of file {% endcomment %}
+              <div class="pb-2">
+                <small class="form-text text-white">
+                  <span class="badge badge-success"> Titulo: </span>
+                  {{image.title}}
+                </small>
+
+              </div>
 
               {% comment %} Box to show images {% endcomment %}
-
-
               {% if not image.file_ext == '.pdf' %}
-
               <a href="{{image.image.url}}?text={{image.title}}" data-toggle="lightbox" data-title="{{image.title}}">
                 <img src="{{image.image.url}}" class="img-fluid mb-2" alt="{{img.title}}" />
-
                 {% else %}
-
                 <img src="{% static 'core/custom/img/logo_pdf.png' %}" class="img-fluid mb-2" alt="{{img.title}}" />
                 {% endif %}
 
 
-                {% comment %} Area to show the Description {% endcomment %}
+                {% comment %} Area to show the filenale {% endcomment %}
                 <small class="form-text text-white">
                   <span class="badge badge-warning"> Nombre: </span>
                   {{image|filename}}
@@ -111,7 +114,7 @@
       </div><!-- /.card-body -->
       {% comment %} Area of foother {% endcomment %}
       <div class="card-footer">
-        <a href=" {% url 'core:addimage'%}" class="open-modal-pet btn btn-secondary"><i class="fas fa-plus-circle"></i> &nbsp;Agregar una Imagen</a>
+        <a href=" {% url 'core:addimage'%}" class="open-modal-pet btn btn-secondary"><i class="fas fa-plus-circle"></i> &nbsp;Agregar una imagen</a>
         <div class="float-right">
           <a class="open-modal-pet btn btn-secondary btn-xs"><i class="fas fa-plus-circle"></i></a> = Agregar |
           <a class="open-modal-pet btn btn-warning btn-xs"><i class="fas fa-pen"></i></a> = Modificar |

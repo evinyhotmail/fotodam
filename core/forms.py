@@ -5,9 +5,9 @@ from core.models import *
 
 class ImageForm(ModelForm):
     title = forms.CharField(
-    label='*Titulo.',
+    label='*Título.',
     required=True,
-    max_length=80,
+    max_length=20,
     widget=forms.TextInput(attrs={'class': 'form-control', }))
 
     description = forms.CharField(

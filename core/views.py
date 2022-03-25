@@ -41,7 +41,7 @@ def DashBoard(request):
         print(x.image.url)
 
     if not images:
-        msg='No tienes imagenes cargardas'
+        msg='No tienes imágenes cargadas.'
     else:
         msg=''
 
@@ -73,9 +73,9 @@ def AddImage(request):
             image.categories.add(*getImageCategories(request.POST))
           
             messages.success(
-                request, ":) La imagen se ha guardado correctamente...!")
+                request, ":) ¡La imagen se ha guardado correctamente!")
         else:
-            messages.error(request, ":( Algo salio mal, posiblemente estes itentando subir un tipo de fichero no valido,  intenta de nuevo..!")
+            messages.error(request, ":( Algo ha salido mal, posiblemente estés intentando subir un tipo de fichero no válido. ¡Intenta de nuevo!")
         return redirect('core:dashboard')
     context = {
         'form': form,
@@ -99,10 +99,10 @@ def EditImage(request, pk):
             form.save()
             if request.FILES:
                 messages.success(
-                request, ":) El registro se ha actualizado con el nuevo fichero")
+                request, ":) El registro se ha actualizado con el nuevo fichero.")
 
             messages.success(
-                request, ":) La imagen se ha guardado correctamente...!")
+                request, ":) ¡La imagen se ha guardado correctamente!")
         
             return redirect('core:dashboard')
 
@@ -124,6 +124,8 @@ def DeleteImage(request, pk):
     
     if request.method == "POST" :
         image.delete()
+        messages.success(
+                request, ":) ¡La imagen se ha eliminado correctamente!")
         
         
         return redirect('core:dashboard')
