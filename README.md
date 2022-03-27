@@ -32,6 +32,13 @@ Para ver la aplicación en ejecución, abre tu navegador y dirígete a la direcc
 
 Por ejemplo, para este desarrollo se ha utilizado **Pillow**, que es una biblioteca adicional gratuita y de código abierto para el lenguaje de programación Python que agrega soporte para abrir, manipular y guardar muchos formatos de archivo de imagen diferentes.
 
+**Nota importate:** Dado a que el desarrollo de la aplicación fue bajo Python 3.8.5, al momento de instalar la versión 4.0.3 de Djago, este instalará automáticamente la libreria: backports.zoneinfo==0.2.1.
+
+Si por alguna casulalidad su versión de Python es 3.9.x  simplemente puedes comentar la linea: backports.zoneinfo==0.2.1. de fichero requirements.txt, para evitar errores de instalación.
+
+Para mas detalles puede ir al siguiente link: https://docs.djangoproject.com/id/4.0/releases/4.0/ de la documentación oficial de Django. 
+
+
 ## Más cosas que te interesan:
 Para entrar en la aplicación cuentas con:
 
